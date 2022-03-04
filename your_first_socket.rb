@@ -1,13 +1,8 @@
 require 'socket'
 
-local_socket = Socket.new(:INET, :STREAM)
-local_addr = Socket.pack_sockaddr_in(4481, '127.0.0.1')
-local_socket.bind(local_addr)
+server = Socket.new(:INET, :STREAM)
+addr = Socket.pack_sockaddr_in(4481, '0.0.0.0')
+server.bind(addr)
+server.listen(Socket::SOMAXCONN)
 
-# any_socket = Socket.new(:INET, :STREAM)
-# any_addr = Socket.pack_sockaddr_in(4481, '0.0.0.0')
-# any_socket.bind(any_addr)
-
-# error_socket = Socket.new(:INET, :STREAM)
-# error_addr = Socket.pack_sockaddr_in(4481, '1.2.3.4')
-# error_socket.bind(error_addr)
+connection, _ = server.accept
